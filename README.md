@@ -2,6 +2,8 @@
 
 Repository for the code, data, and analysis accompanying "Optimization of negative stage bias potential for faster imaging in large-scale electron microscopy."
 
+[![DOI](https://zenodo.org/badge/291080062.svg)](https://zenodo.org/badge/latestdoi/291080062)
+
 
 ### notebooks
 * `SNR_analysis.ipynb`
