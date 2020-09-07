@@ -10,7 +10,7 @@ Repository for the code, data, and analysis accompanying "Optimization of negati
   * SNR measurements on recorded image data
   * Used to produce figure 5
 * `noise_analysis.ipynb`
-  * Fourier analysis of image and "noise" (images acquired with beam blanked) data
+  * Fourier analysis of tissue images and "noise" images (acquired with beam blanked)
   * Used to produce supplementary figures 7 & 8
 * `trajectory_plots.ipynb`
   * Analysis of electron trajectories
