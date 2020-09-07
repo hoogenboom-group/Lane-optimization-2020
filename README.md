@@ -2,7 +2,7 @@
 
 Repository for the code, data, and analysis accompanying "Optimization of negative stage bias potential for faster imaging in large-scale electron microscopy."
 
-[![DOI](https://zenodo.org/badge/291080062.svg)](https://zenodo.org/badge/latestdoi/291080062)
+[![DOI](https://zenodo.org/badge/10.4121/12907205.svg)](https://doi.org/10.4121/12907205)
 
 
 ### notebooks
