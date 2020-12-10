@@ -5,7 +5,7 @@ Repository for the code, data, and analysis accompanying "Optimization of negati
 [![DOI](https://zenodo.org/badge/doi/10.4121/12907205.svg)](https://doi.org/10.4121/12907205)
 
 
-### notebooks
+### ./notebooks
 * `SNR_analysis.ipynb`
   * SNR measurements on recorded image data
   * Used to produce figures 3, 5, and supplemental figure 9
@@ -20,14 +20,14 @@ Repository for the code, data, and analysis accompanying "Optimization of negati
   * Validation of SSNR-based SNR method
 
 
-### code
+### ./code
 * `ssnr.py`
   * Functions for making Fourier ring correlation (FRC) and spectral signal-to-noise ratio (SSNR) computations
   * Also includes 
   * Supports `SNR_analysis.ipynb`
 
 
-### data
+### ./data
 * `SNR_images` -- BSE images acquired with CBS detector (5 images acquired per setting)
 
 | LE     | Imaging mode |                           Stage bias                           |               Dwell               | Pixel size |
