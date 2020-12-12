@@ -104,6 +104,10 @@ Thumbs.db
 ehthumbs.db
 ehthumbs_vista.db
 
+# Mac cache files
+.DS_Store
+*/.DS_Store
+
 # Dump file
 *.stackdump
 

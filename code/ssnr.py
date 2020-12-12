@@ -214,3 +214,13 @@ def nonwhite_noise(variance, shape):
     white = np.random.normal(0, 1, shape)
     correlated = gaussian_filter(white, .4)
     return math.sqrt(variance/correlated.var()) * correlated
+
+
+def split_image(image):
+    """Split image along alternating horizontal and vertical scan lines"""
+    im1 = image[0::2, 0::2]
+    im2 = image[1::2, 0::2]
+    im3 = image[0::2, 1::2]
+    im4 = image[1::2, 1::2]
+    images = [im1, im2, im3, im4]
+    return images
