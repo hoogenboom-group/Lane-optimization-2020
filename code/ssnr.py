@@ -59,32 +59,6 @@ def azimuthalAverage(image):
     return radial_prof[1:], n_bin[1:]
 
 
-def FRC_ring(image1, image2):
-    """Compute the Fourier ring correlation of two images
-    averaged over equal-frequency rings"""
-    fft1 = np.fft.fft2(image1) / (image1.size)
-    fft2 = np.fft.fft2(image2) / (image2.size)
-
-    num, _ = azimuthalAverage(fft1 * fft2.conj())
-    den = np.sqrt(azimuthalAverage(fft1*fft1.conj())[0] *
-                azimuthalAverage(fft2*fft2.conj())[0])
-    return num / den
-
-
-def FRC_full(image1, image2):
-    """Compute the Fourier ring correlation of two images
-    averaged over the full images"""
-    fft1 = np.fft.fft2(image1) / (image1.size)
-    fft2 = np.fft.fft2(image2) / (image2.size)
-    fft1[0, 0] = 0
-    fft2[0, 0] = 0
-
-    num = np.sum(fft1 * fft2.conj())
-    den = np.sqrt(np.sum(fft1*fft1.conj()) *
-                np.sum(fft2*fft2.conj()))
-    return num / den
-
-
 def SSNR_ring(image_list):
     """Compute the spectral signal-to-noise ratio
     averaged over equal-frequency rings"""
@@ -118,46 +92,6 @@ def SSNR_full(image_list):
     # Divide by K to get the SNR for each individual image in the list
     SSNR = num / (K/(K-1) * den) - 1
     return SSNR / K
-
-
-def PSD_floor(noisy_image):
-    """Get 2D PSD and noise floor of a single image"""
-    fft = np.fft.fft2(noisy_image) / noisy_image.size
-    fftnorm = (fft * fft.conj()).real
-    fftnorm[0, 0] = 0 # Set mean to zero so it can be safely ignored later
-
-    # Get floor
-    fx = fftidx(noisy_image.shape[0])
-    fy = fftidx(noisy_image.shape[1])
-    r = np.hypot(fx[:,np.newaxis], fy[np.newaxis,:])
-    floor = np.mean(fftnorm[r > max(noisy_image.shape)//2])
-
-    return fftnorm, floor
-
-
-def SNR_PSD(image):
-    """Single image SNR method from PSD
-
-    Parameters
-    ----------
-    image : array_like
-        Input image
-
-    Returns
-    -------
-    SNR : float
-        Computed signal to noise ratio
-
-    Notes
-    -----
-    * PSD = power spectral density
-    * Not appropriate for images with non-white noise
-    """
-    fftnorm, floor = PSD_floor(image)
-    noiseVariance = floor * image.size
-    totalVariance = np.sum(fftnorm) # == noisy_image.var()
-    signalVariance = totalVariance - noiseVariance
-    return signalVariance / noiseVariance
 
 
 def SNR_JOY(image):
