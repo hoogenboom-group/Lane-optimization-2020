@@ -10,7 +10,7 @@ def fftidx(n):
     return results
 
 
-def azimuthalAverage(image):
+def azimuthal_sum(image):
     """Azimuthally average a 2D FFT image
     
     Parameters
@@ -21,7 +21,7 @@ def azimuthalAverage(image):
     Returns
     -------
     radial_prof : 1D array
-        Azimuthal average excluding zero frequency
+        Azimuthal average
     n_bin : 1D array
         Number of bins used in each average
         Can be used to find the original sum
@@ -45,39 +45,39 @@ def azimuthalAverage(image):
     # Find all pixels within each radial bin
     r_int = r_sorted.astype(int)
     new_bin_idx = np.r_[0, np.where(r_int[1:] - r_int[:-1])[0] + 1]
-    n_bin = np.r_[new_bin_idx[1:] - new_bin_idx[:-1],
-                len(r_sorted)-new_bin_idx[-1]]
 
     # Sum image for each bin
     cs = np.r_[0, np.cumsum(i_sorted)]
     bintot = np.r_[cs[new_bin_idx[1:]]-cs[new_bin_idx[:-1]],
                 cs[-1]-cs[new_bin_idx[-1]]]
 
-    radial_prof = bintot / n_bin
-    return radial_prof[1:], n_bin[1:]
+    radial_prof = bintot
+    return radial_prof
 
 
 def SSNR_ring(image_list):
     """Compute the spectral signal-to-noise ratio
     averaged over equal-frequency rings"""
-    ffts = [np.fft.fft2(image) / image.size for image in image_list]
+    ffts = [np.fft.fft2(image) for image in image_list]
+    for fft in ffts:
+        fft[0, 0] = 0
     K = len(image_list)
 
     fftsum = np.sum(ffts, axis=0)
-    num, _ = azimuthalAverage((fftsum*fftsum.conj()).real)
-    den, _ = azimuthalAverage(
+    num = azimuthal_sum((fftsum*fftsum.conj()).real)
+    den = azimuthal_sum(
         np.sum([np.abs(ffts[i] - fftsum/K)**2 for i in range(K)], axis=0))
 
     # SSNR equation (Wikipedia) is for the combined average.
     # Divide by K to get the SNR for each individual image in the list.
-    SSNR = num / (K/(K-1) * den) - 1
+    SSNR = (K-1) * num / (K * den) - 1
     return SSNR / K
 
 
 def SSNR_full(image_list):
     """Compute the spectral signal-to-noise ratio
     averaged over the full images"""
-    ffts = [np.fft.fft2(image) / image.size for image in image_list]
+    ffts = [np.fft.fft2(image) for image in image_list]
     for fft in ffts:
         fft[0, 0] = 0
     K = len(image_list)
@@ -88,7 +88,7 @@ def SSNR_full(image_list):
 
     # SSNR equation (Wikipedia) is for the combined average
     # Divide by K to get the SNR for each individual image in the list
-    SSNR = num / (K/(K-1) * den) - 1
+    SSNR = (K-1) * num / (K * den) - 1
     return SSNR / K
 
 
@@ -103,7 +103,7 @@ def SNR_JOY(image):
     Returns
     -------
     SNR : float
-        Computed signal to noise ratio
+        Computed signal-to-noise ratio
     """
     # Separate even and odd rows
     even = image[::2, :]
