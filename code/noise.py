@@ -8,9 +8,9 @@ def generate_image(nx, ny):
     image = np.zeros((nx, ny))
 
     # Add features
-    for i in range(5):
+    for i in range(500):
         y,x = np.indices(image.shape)
-        sigma = np.random.uniform(nx/10, nx/5)
+        sigma = np.random.uniform(nx/100, nx/50)
         dx = x-np.random.uniform(0, nx)
         dy = y-np.random.uniform(0, ny)
         image += np.exp(-(dx**2+dy**2)/(2*sigma**2))
