@@ -49,7 +49,7 @@ def azimuthal_sum(image):
     # Sum image for each bin
     cs = np.r_[0, np.cumsum(i_sorted)]
     bintot = np.r_[cs[new_bin_idx[1:]]-cs[new_bin_idx[:-1]],
-                cs[-1]-cs[new_bin_idx[-1]]]
+                   cs[-1]-cs[new_bin_idx[-1]]]
 
     radial_prof = bintot
     return radial_prof
@@ -111,9 +111,9 @@ def SNR_JOY(image):
 
     # Compute SNR
     cov = np.mean((even.T - even.mean(axis=1)) *\
-                (oddd.T - oddd.mean(axis=1)), axis=0)
+                  (oddd.T - oddd.mean(axis=1)), axis=0)
     var = np.sqrt(np.var(even, ddof=1, axis=1) *\
-                np.var(oddd, ddof=1, axis=1))
+                  np.var(oddd, ddof=1, axis=1))
     Rn = cov / var
     snr = Rn / (1 - Rn)
     return snr.mean()
