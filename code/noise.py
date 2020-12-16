@@ -3,17 +3,17 @@ import numpy as np
 from scipy.ndimage import gaussian_filter
 
 
-def generate_image(nx, ny):
+def generate_image(nx, ny, N_features=500):
     """Generate a random image with shape (nx, ny)"""
-    image = np.zeros((nx, ny))
-
-    # Add features
-    for i in range(500):
-        y,x = np.indices(image.shape)
-        sigma = np.random.uniform(nx/100, nx/50)
-        dx = x-np.random.uniform(0, nx)
-        dy = y-np.random.uniform(0, ny)
-        image += np.exp(-(dx**2+dy**2)/(2*sigma**2))
+    # Create features (Gaussian blobs)
+    y, x = np.indices((nx, ny))
+    x = np.repeat(x[:, :, np.newaxis], N_features, axis=2)
+    y = np.repeat(y[:, :, np.newaxis], N_features, axis=2)
+    sigma = np.random.uniform(nx/100, nx/50, N_features)
+    dx = x - np.random.uniform(0, nx, N_features)
+    dy = y - np.random.uniform(0, ny, N_features)
+    blobs = np.exp(-(dx**2 + dy**2)/(2*sigma**2))
+    image = np.sum(blobs, axis=2)
 
     # Return normalized image
     image /= image.max()
