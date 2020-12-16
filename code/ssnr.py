@@ -22,14 +22,11 @@ def azimuthal_sum(image):
     -------
     radial_prof : 1D array
         Azimuthal average
-    n_bin : 1D array
-        Number of bins used in each average
-        Can be used to find the original sum
 
     Notes
     -----
-    * zero frequency is on the top left
-    * negative frequencies are on the bottom & right
+    * zero frequency of input image is on the top left
+    * negative frequencies of input image are on the bottom & right
     """
     # Get distance to zero frequency
     fx = fftidx(image.shape[0])
@@ -50,9 +47,7 @@ def azimuthal_sum(image):
     cs = np.r_[0, np.cumsum(i_sorted)]
     bintot = np.r_[cs[new_bin_idx[1:]]-cs[new_bin_idx[:-1]],
                    cs[-1]-cs[new_bin_idx[-1]]]
-
-    radial_prof = bintot
-    return radial_prof
+    return bintot
 
 
 def SSNR_ring(image_list):
@@ -110,9 +105,9 @@ def SNR_JOY(image):
     oddd = image[1::2, :]
 
     # Compute SNR
-    cov = np.mean((even.T - even.mean(axis=1)) *\
+    cov = np.mean((even.T - even.mean(axis=1)) *
                   (oddd.T - oddd.mean(axis=1)), axis=0)
-    var = np.sqrt(np.var(even, ddof=1, axis=1) *\
+    var = np.sqrt(np.var(even, ddof=1, axis=1) *
                   np.var(oddd, ddof=1, axis=1))
     Rn = cov / var
     snr = Rn / (1 - Rn)
