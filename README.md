@@ -44,4 +44,4 @@ Repository for the code, data, and analysis accompanying "Optimization of negati
 ### Additional resources
 * http://www.nanotomy.org/OA/Lane2020/Lane.html
 * https://github.com/lanery/iCAT-workflow
-* http://sonic.tnw.tudelft.nl/catmaid/
+* https://sonic.tnw.tudelft.nl/catmaid/
