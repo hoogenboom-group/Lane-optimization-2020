@@ -45,5 +45,5 @@ Repository for the code, data, and analysis accompanying "Optimization of negati
 * http://nanotomy.org/OA/Lane2021JSBX/Lane.html
 * https://github.com/hoogenboom-group/iCAT-workflow
 * https://sonic.tnw.tudelft.nl/catmaid/
-* [Fig 6 full dataset](https://sonic.tnw.tudelft.nl/catmaid/?pid=4&zp=0&yp=297435&xp=249355&tool=navigator&sid0=9&s0=7)
-* [Fig 7 full dataset](https://sonic.tnw.tudelft.nl/catmaid/?pid=9&zp=0&yp=163895&xp=265455&tool=navigator&sid0=39&s0=6)
+* [Fig 6 full dataset](https://sonic.tnw.tudelft.nl/catmaid/6/links/6p9l5mt)
+* [Fig 7 full dataset](https://sonic.tnw.tudelft.nl/catmaid/3/links/26sj3uf)
